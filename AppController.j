@@ -15,6 +15,8 @@
 
 	@outlet CPCollectionView collectionView;
 	@outlet CPTableView statisticsTableView;
+	
+	CPArray _csvFileArray;
 }
 
 - (void)applicationDidFinishLaunching:(CPNotification)aNotification
