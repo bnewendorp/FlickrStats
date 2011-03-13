@@ -39,7 +39,7 @@
 // return the number of values in the data source array
 - (int)numberOfRowsInTableView:(CPTableView)aTableView
 {
-	return [csvFileArray count];
+	return [_csvFileArray count];
 }
 
 // return a CPString for each row in the table view
