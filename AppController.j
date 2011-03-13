@@ -15,7 +15,7 @@
 {
 	CPWindow theWindow;
 
-	@outlet CPCollectionView collectionView;
+	@outlet CPCollectionView _collectionView;
 	@outlet CPTableView statisticsTableView;
 	
 	CPArray _csvFileArray;
@@ -43,10 +43,10 @@
 	// make a prototype PhotoItem first
 	var prototypeItem = [[CPCollectionViewItem alloc] init];
 	[prototypeItem setView:[[PhotoItem alloc] init]];
-	[collectionView setDelegate:self];
-	[collectionView setItemPrototype:prototypeItem];
-	[collectionView setMinItemSize:CGSizeMake(100, 100)];
-	[collectionView setMaxItemSize:CGSizeMake(100, 100)];
+	[_collectionView setDelegate:self];
+	[_collectionView setItemPrototype:prototypeItem];
+	[_collectionView setMinItemSize:CGSizeMake(100, 100)];
+	[_collectionView setMaxItemSize:CGSizeMake(100, 100)];
 }
 
 /////////////////////////////////////////////
