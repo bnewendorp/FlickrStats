@@ -58,9 +58,9 @@ objectValueForTableColumn:(CPTableColumn)tableColumn
 // Table view delegate methods
 
 // respond to the selection changing by loading a new data set
-(void)tableViewSelectionDidChange:(CPNotification)aNotification
+- (void)tableViewSelectionDidChange:(CPNotification)aNotification
 {
-	
+	var day = [_csvFileArray objectAtIndex:[statisticsTableView selectedRow]];
 }
 
 // Setup methods
