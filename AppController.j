@@ -24,11 +24,13 @@
 {
 	// Hide the menu bar, we aren't using it
 	[CPMenu setMenuBarVisible:NO];
+	
 }
 
 - (void)awakeFromCib
 {
 	[theWindow setFullBridge:YES];
+	_csvFileArray = [[CPArray alloc] initWithCapacity:40];
 	
 	// setup the contents of the table view
 	[statisticsTableView setDelegate:self];
@@ -44,11 +46,11 @@
 }
 
 // return a CPString for each row in the table view
-- (id)tableView:(CPTableView)aTableView
-objectValueForTableColumn:(CPTableColumn)aColumn
-					  row:(int)aRowIndex
+- (id)tableView:(CPTableView)tableView
+objectValueForTableColumn:(CPTableColumn)tableColumn
+					  row:(int)row
 {
-	
+	return [[_csvFileArray objectAtIndex:row] displayName];
 }
 
 // Table view delegate methods
