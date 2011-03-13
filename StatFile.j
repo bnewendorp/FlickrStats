@@ -35,9 +35,9 @@
 		// set the display name based on the file name
 		var fileNameElements = [[_dataFilePath lastPathComponent] componentsSeparatedByString:"-"];
 		_displayName = [[CPString alloc] initWithFormat:"%@ %i, %i",
-									[self monthNameForInt:[[fileNameElements objectAtIndex:2] intValue]],
-									[[fileNameElements objectAtIndex:3] intValue],
-									[[fileNameElements objectAtIndex:1] intValue]];
+								[self monthNameForInt:[[fileNameElements objectAtIndex:2] intValue]],
+								[[fileNameElements objectAtIndex:3] intValue],
+								[[fileNameElements objectAtIndex:1] intValue]];
 	}
 	return self;
 }
