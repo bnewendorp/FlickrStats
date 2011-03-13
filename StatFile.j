@@ -38,7 +38,6 @@
 									[self monthNameForInt:[[fileNameElements objectAtIndex:2] intValue]],
 									[[fileNameElements objectAtIndex:3] intValue],
 									[[fileNameElements objectAtIndex:1] intValue]];
-		CPLog("Display name: " + _displayName);
 	}
 	return self;
 }
