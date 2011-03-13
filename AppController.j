@@ -39,6 +39,7 @@
 	[statisticsTableView setDataSource:self];
 }
 
+/////////////////////////////////////////////
 // Table view data source methods
 
 // return the number of values in the data source array
@@ -55,6 +56,7 @@ objectValueForTableColumn:(CPTableColumn)tableColumn
 	return [[_csvFileArray objectAtIndex:row] displayName];
 }
 
+/////////////////////////////////////////////
 // Table view delegate methods
 
 // respond to the selection changing by loading a new data set
@@ -63,6 +65,7 @@ objectValueForTableColumn:(CPTableColumn)tableColumn
 	var day = [_csvFileArray objectAtIndex:[statisticsTableView selectedRow]];
 }
 
+/////////////////////////////////////////////
 // Setup methods
 - (void)loadDataFiles
 {
