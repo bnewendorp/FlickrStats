@@ -38,7 +38,27 @@
 	// setup the contents of the table view
 	[statisticsTableView setDelegate:self];
 	[statisticsTableView setDataSource:self];
+	
+	// setup the collection view
+	// make a prototype PhotoItem first
+	var prototypeItem = [[CPCollectionViewItem alloc] init];
+	[prototypeItem setView:[[PhotoItem alloc] init]];
+	[collectionView setDelegate:self];
+	[collectionView setItemPrototype:prototypeItem];
+	[collectionView setMinItemSize:CGSizeMake(100, 100)];
+	[collectionView setMaxItemSize:CGSizeMake(100, 100)];
 }
+
+/////////////////////////////////////////////
+// Collection view delegate methods
+
+-(CPData)collectionView:(CPCollectionView)collectionView
+  dataForItemsAtIndexes:(CPIndexSet)indices
+				forType:(CPString)aType
+{
+	
+}
+
 
 /////////////////////////////////////////////
 // Table view data source methods
