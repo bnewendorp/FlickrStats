@@ -7,6 +7,7 @@
  */
 
 @import <Foundation/CPObject.j>
+@import "StatFile.j"
 
 
 @implementation AppController : CPObject
