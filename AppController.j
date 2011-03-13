@@ -26,6 +26,34 @@
 - (void)awakeFromCib
 {
 	[theWindow setFullBridge:YES];
+	
+	// setup the contents of the table view
+	[statisticsTableView setDelegate:self];
+	[statisticsTableView setDataSource:self];
+}
+
+// Table view data source methods
+
+// return the number of values in the data source array
+- (int)numberOfRowsInTableView:(CPTableView)aTableView
+{
+	return [csvFileArray count];
+}
+
+// return a CPString for each row in the table view
+- (id)tableView:(CPTableView)aTableView
+objectValueForTableColumn:(CPTableColumn)aColumn
+					  row:(int)aRowIndex
+{
+	
+}
+
+// Table view delegate methods
+
+// respond to the selection changing by loading a new data set
+(void)tableViewSelectionDidChange:(CPNotification)aNotification
+{
+	
 }
 
 @end
