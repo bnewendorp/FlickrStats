@@ -8,6 +8,7 @@
 
 @import <Foundation/CPObject.j>
 @import "StatFile.j"
+@import "PhotoItem.j"
 
 
 @implementation AppController : CPObject
