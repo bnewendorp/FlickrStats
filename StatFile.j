@@ -66,8 +66,7 @@
 
 - (CPArray)photoURLArray
 {
-	// return a copy so the receiver can't edit the original data
-	return [_photoURLArray copy];
+	return _photoURLArray;
 }
 
 - (void)addPhotoURL:(CPString)newURL
