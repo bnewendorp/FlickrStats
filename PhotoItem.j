@@ -11,7 +11,7 @@
 @implementation PhotoItem : CPView
 {
 	CPImage _image;
-	CPImaveView _imageView;
+	CPImageView _imageView;
 }
 
 - (void)setRepresentedObject:(JSObject)object
