@@ -16,6 +16,7 @@
 	
 	CPArray _photoIDArray;
 	CPArray _viewCountArray;
+	CPArray _photoURLArray;
 }
 
 - (id)initWithFilePath:(CPString)filePath
@@ -25,6 +26,7 @@
 		_dataFilePath = filePath;
 		_photoIDArray = [[CPArray alloc] initWithCapacity:20];
 		_viewCountArray = [[CPArray alloc] initWithCapacity:20];
+		_photoURLArray = [[CPArray alloc] initWithCapacity:20];
 		
 		// get the CSV file via CPURLConnection
 		var request = [CPURLRequest requestWithURL:_dataFilePath];
@@ -60,6 +62,17 @@
 - (CPString)photoIDForIndex:(int)index
 {
 	return [_photoIDArray objectAtIndex:index];
+}
+
+- (CPArray)photoURLArray
+{
+	// return a copy so the receiver can't edit the original data
+	return [_photoURLArray copy];
+}
+
+- (void)addPhotoURL:(CPString)newURL
+{
+	[_photoURLArray addObject:newURL];
 }
 
 - (void)parseCSVString:(CPString)csvString
