@@ -68,6 +68,11 @@
 	return _photoURLDictionary;
 }
 
+- (CPDictionary)viewCountDictionary
+{
+	return _viewCountDictionary;
+}
+
 - (void)addPhotoURL:(CPString)newURL forPhotoID:photoID
 {
 	[_photoURLDictionary setValue:newURL forKey:photoID];
