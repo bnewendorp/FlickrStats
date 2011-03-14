@@ -19,6 +19,8 @@
 	@outlet CPTableView _statisticsTableView;
 	
 	CPArray _csvFileArray;
+	
+	int _receiveCount;
 }
 
 - (void)applicationDidFinishLaunching:(CPNotification)aNotification
@@ -56,7 +58,7 @@
   dataForItemsAtIndexes:(CPIndexSet)indices
 				forType:(CPString)aType
 {
-	
+	CPLog("CollectionView dataForItemsAtIndexes forType")
 }
 
 
@@ -85,10 +87,15 @@ objectValueForTableColumn:(CPTableColumn)tableColumn
 {
 	var day = [_csvFileArray objectAtIndex:[_statisticsTableView selectedRow]];
 	
-	var request = [CPURLRequest requestWithURL:"http://flickr.com/services/rest/?method="+
-			"flickr.photos.getSizes&photo_id=" + encodeURIComponent([day photoIDForIndex:0]) +
-			"&format=json&api_key=964106a1c097256de54d7d2aafd4d9b6"];
-	[CPJSONPConnection sendRequest:request callback:"jsoncallback" delegate:self];
+	for (i=0; i < [day count]; i++)
+	{
+		var request = [CPURLRequest requestWithURL:"http://flickr.com/services/rest/?method="+
+				"flickr.photos.getSizes&photo_id=" + encodeURIComponent([day photoIDForIndex:i]) +
+				"&format=json&api_key=964106a1c097256de54d7d2aafd4d9b6"];
+		[CPJSONPConnection sendRequest:request callback:"jsoncallback" delegate:self];
+	}
+	_receiveCount = 0;
+	[_collectionView setContent:[day photoURLArray]];
 }
 
 /////////////////////////////////////////////
@@ -98,6 +105,8 @@ objectValueForTableColumn:(CPTableColumn)tableColumn
 {
 	var day = [_csvFileArray objectAtIndex:[_statisticsTableView selectedRow]];
 	
+	_receiveCount++;
+	
 	// CPSONPConnection gives a Javascript object back, not really a CPString
 	// Need to access the values in a JS way.
 	// data returns sizes, which has an array of size objects
@@ -105,8 +114,14 @@ objectValueForTableColumn:(CPTableColumn)tableColumn
 	for (i = 0; i < data.sizes.size.length; i++)
 	{
 		if (data.sizes.size[i].label == "Thumbnail")
-			[day addURL:data.sizes.size[i].source];
+		{
+			[day addPhotoURL:data.sizes.size[i].source];
+		}
 	}
+	
+//	if (_receiveCount == [day count])
+		[_collectionView reloadContent];
+//		[_collectionView setContent:[day photoURLArray]];
 }
 
 - (void)connection:(CPJSONPConnection)aConnection didFailWithError:(CPString)error
