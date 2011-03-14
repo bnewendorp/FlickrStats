@@ -49,6 +49,7 @@
 	[_collectionView setItemPrototype:prototypeItem];
 	[_collectionView setMinItemSize:CGSizeMake(100, 100)];
 	[_collectionView setMaxItemSize:CGSizeMake(100, 100)];
+	[_collectionView setBackgroundColor:[CPColor lightGrayColor]];
 }
 
 /////////////////////////////////////////////
