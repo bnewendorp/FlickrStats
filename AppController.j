@@ -53,17 +53,6 @@
 }
 
 /////////////////////////////////////////////
-// Collection view delegate methods
-
--(CPData)collectionView:(CPCollectionView)collectionView
-  dataForItemsAtIndexes:(CPIndexSet)indices
-				forType:(CPString)aType
-{
-	CPLog("CollectionView dataForItemsAtIndexes forType")
-}
-
-
-/////////////////////////////////////////////
 // Table view data source methods
 
 // return the number of values in the data source array
