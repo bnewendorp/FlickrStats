@@ -21,10 +21,10 @@ app ("FlickrStats", function(task)
     task.setBuildPath(FILE.join("Build", configuration));
 
     task.setProductName("FlickrStats");
-    task.setIdentifier("com.yourcompany.FlickrStats");
+    task.setIdentifier("com.amoniq.FlickrStats");
     task.setVersion("1.0");
-    task.setAuthor("Your Company");
-    task.setEmail("feedback @nospam@ yourcompany.com");
+    task.setAuthor("Brandon Newendorp");
+    task.setEmail("brandon @nospam@ newendorp.com");
     task.setSummary("FlickrStats");
     task.setSources((new FileList("**/*.j")).exclude(FILE.join("Build", "**")));
     task.setResources(new FileList("Resources/**"));
