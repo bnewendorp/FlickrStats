@@ -57,6 +57,11 @@
 	return [_photoIDArray count];
 }
 
+- (CPString)photoIDForIndex:(int)index
+{
+	return [_photoIDArray objectAtIndex:index];
+}
+
 - (void)parseCSVString:(CPString)csvString
 {
 	// not the safest assumption that they all use \n, but it'll do
