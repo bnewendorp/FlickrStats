@@ -14,9 +14,9 @@
 	CPString _dataFilePath;
 	CPString _displayName;
 	
-	CPArray _photoIDArray;
-	CPArray _viewCountArray;
-	CPArray _photoURLArray;
+//	CPArray _photoIDArray;
+	CPDictionary _viewCountDictionary;
+	CPDictionary _photoURLDictionary;
 }
 
 - (id)initWithFilePath:(CPString)filePath
@@ -24,9 +24,8 @@
 	if(self = [super init])
 	{
 		_dataFilePath = filePath;
-		_photoIDArray = [[CPArray alloc] initWithCapacity:20];
-		_viewCountArray = [[CPArray alloc] initWithCapacity:20];
-		_photoURLArray = [[CPArray alloc] initWithCapacity:20];
+		_viewCountDictionary = [[CPDictionary alloc] init];
+		_photoURLDictionary = [[CPDictionary alloc] init];
 		
 		// get the CSV file via CPURLConnection
 		var request = [CPURLRequest requestWithURL:_dataFilePath];
@@ -56,22 +55,22 @@
 
 - (int)count
 {
-	return [_photoIDArray count];
+	return [_viewCountDictionary count];
 }
 
 - (CPString)photoIDForIndex:(int)index
 {
-	return [_photoIDArray objectAtIndex:index];
+	return [[_viewCountDictionary allKeys] objectAtIndex:index];
 }
 
-- (CPArray)photoURLArray
+- (CPDictionary)photoURLDictionary
 {
-	return _photoURLArray;
+	return _photoURLDictionary;
 }
 
-- (void)addPhotoURL:(CPString)newURL
+- (void)addPhotoURL:(CPString)newURL forPhotoID:photoID
 {
-	[_photoURLArray addObject:newURL];
+	[_photoURLDictionary setValue:newURL forKey:photoID];
 }
 
 - (void)parseCSVString:(CPString)csvString
@@ -88,12 +87,14 @@
 		// error checking in case there's a short or empty line
 		if ([elements count] < 5)
 			break;
-			
-		// grab the number out of the photo's URL
-		[_photoIDArray addObject:[[elements objectAtIndex:1] lastPathComponent]];
 		
-		// get the view count
-		[_viewCountArray addObject:[[elements objectAtIndex:5] intValue]];
+		// get the view count for the corresponding photo
+		[_viewCountDictionary setValue:[[elements objectAtIndex:5] intValue]
+								forKey:[[elements objectAtIndex:1] lastPathComponent]];
+		
+		// also add a null object to the photoURL dictionary, to be replaced as needed
+		[_photoURLDictionary setValue:[CPNull null]
+								forKey:[[elements objectAtIndex:1] lastPathComponent]];
 	}
 }
 

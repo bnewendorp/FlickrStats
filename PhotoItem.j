@@ -28,7 +28,8 @@
 	
 	[_image setDelegate:nil];
 	
-	_image = [[CPImage alloc] initWithContentsOfFile:object];
+	if (object != [CPNull null])
+		_image = [[CPImage alloc] initWithContentsOfFile:object];
 
     [_image setDelegate:self];
     

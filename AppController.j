@@ -86,8 +86,10 @@ objectValueForTableColumn:(CPTableColumn)tableColumn
 // respond to the selection changing by loading a new data set
 - (void)tableViewSelectionDidChange:(CPNotification)aNotification
 {
+	// set day to the StatFile for the selected row
 	var day = [_csvFileArray objectAtIndex:[_statisticsTableView selectedRow]];
 	
+	// request the photo URL for each photo in that day's statistics
 	for (i=0; i < [day count]; i++)
 	{
 		var request = [CPURLRequest requestWithURL:"http://flickr.com/services/rest/?method="+
@@ -96,7 +98,6 @@ objectValueForTableColumn:(CPTableColumn)tableColumn
 		[CPJSONPConnection sendRequest:request callback:"jsoncallback" delegate:self];
 	}
 	_receiveCount = 0;
-	[_collectionView setContent:[day photoURLArray]];
 }
 
 /////////////////////////////////////////////
@@ -104,25 +105,34 @@ objectValueForTableColumn:(CPTableColumn)tableColumn
 
 - (void)connection:(CPJSONPConnection)aConnection didReceiveData:(CPString)data
 {
+	// set day to the StatFile for the selected row
 	var day = [_csvFileArray objectAtIndex:[_statisticsTableView selectedRow]];
-	
-	_receiveCount++;
 	
 	// CPSONPConnection gives a Javascript object back, not really a CPString
 	// Need to access the values in a JS way.
 	// data returns sizes, which has an array of size objects
 	var sizeObjects = data.sizes;
+	
+	// Need the photo ID, going to parse it out of the URL because we don't know what order the
+	// JSONP callbacks will be received in
+	// Separate the URL by "/", object 5 is the photo ID
+	var urlComponents = [data.sizes.size[0].url componentsSeparatedByString:"/"];
+	
 	for (i = 0; i < data.sizes.size.length; i++)
 	{
 		if (data.sizes.size[i].label == "Thumbnail")
 		{
-			[day addPhotoURL:data.sizes.size[i].source];
+			[day addPhotoURL:data.sizes.size[i].source forPhotoID:[urlComponents objectAtIndex:5]];
 		}
 	}
 	
-//	if (_receiveCount == [day count])
+	_receiveCount++;
+	
+	if (_receiveCount == [day count])
+	{
 		[_collectionView reloadContent];
-//		[_collectionView setContent:[day photoURLArray]];
+		[_collectionView setContent:[[day photoURLDictionary] allValues]];
+	}
 }
 
 - (void)connection:(CPJSONPConnection)aConnection didFailWithError:(CPString)error
