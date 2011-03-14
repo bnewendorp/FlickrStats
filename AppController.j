@@ -57,9 +57,11 @@
 	[_collectionView setBackgroundColor:[CPColor lightGrayColor]];
 	
 	// Make the loading view for when it's needed
-	_loadingView = [[EKActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+	_loadingView = [[EKActivityIndicatorView alloc] initWithFrame:CGRectMake(
+		 									(CPRectGetWidth([_collectionView frame])-25) / 2,
+											(CPRectGetHeight([_collectionView frame])-25) / 2,
+											50, 50)];
 	[_collectionView addSubview:_loadingView];
-	[_loadingView setCenter:[_collectionView center]];
 }
 
 /////////////////////////////////////////////
@@ -86,6 +88,7 @@ objectValueForTableColumn:(CPTableColumn)tableColumn
 - (void)tableViewSelectionDidChange:(CPNotification)aNotification
 {
 	// create a timer to display the loading view and clear the collection view
+	// use a timer in case it loads really fast and the timer isn't necessary
 	_loadingTimer = [CPTimer scheduledTimerWithTimeInterval:0.15
 									 				 target:_loadingView
 												   selector:@selector(startAnimating)

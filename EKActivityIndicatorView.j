@@ -47,6 +47,8 @@
 {
     if (_isAnimating)
         return;
+
+	[self setCenter:[[self superview] center]];
     
     _isAnimating    = YES;
     _step           = 1;
