@@ -16,7 +16,7 @@
 	CPWindow theWindow;
 
 	@outlet CPCollectionView _collectionView;
-	@outlet CPTableView statisticsTableView;
+	@outlet CPTableView _statisticsTableView;
 	
 	CPArray _csvFileArray;
 }
@@ -36,8 +36,8 @@
 	[self loadDataFiles];
 	
 	// setup the contents of the table view
-	[statisticsTableView setDelegate:self];
-	[statisticsTableView setDataSource:self];
+	[_statisticsTableView setDelegate:self];
+	[_statisticsTableView setDataSource:self];
 	
 	// setup the collection view
 	// make a prototype PhotoItem first
