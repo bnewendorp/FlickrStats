@@ -83,7 +83,35 @@ objectValueForTableColumn:(CPTableColumn)tableColumn
 // respond to the selection changing by loading a new data set
 - (void)tableViewSelectionDidChange:(CPNotification)aNotification
 {
-	var day = [_csvFileArray objectAtIndex:[statisticsTableView selectedRow]];
+	var day = [_csvFileArray objectAtIndex:[_statisticsTableView selectedRow]];
+	
+	var request = [CPURLRequest requestWithURL:"http://flickr.com/services/rest/?method="+
+			"flickr.photos.getSizes&photo_id=" + encodeURIComponent([day photoIDForIndex:0]) +
+			"&format=json&api_key=964106a1c097256de54d7d2aafd4d9b6"];
+	[CPJSONPConnection sendRequest:request callback:"jsoncallback" delegate:self];
+}
+
+/////////////////////////////////////////////
+// CPJSONPConnection delegate methods
+
+- (void)connection:(CPJSONPConnection)aConnection didReceiveData:(CPString)data
+{
+	var day = [_csvFileArray objectAtIndex:[_statisticsTableView selectedRow]];
+	
+	// CPSONPConnection gives a Javascript object back, not really a CPString
+	// Need to access the values in a JS way.
+	// data returns sizes, which has an array of size objects
+	var sizeObjects = data.sizes;
+	for (i = 0; i < data.sizes.size.length; i++)
+	{
+		if (data.sizes.size[i].label == "Thumbnail")
+			[day addURL:data.sizes.size[i].source];
+	}
+}
+
+- (void)connection:(CPJSONPConnection)aConnection didFailWithError:(CPString)error
+{
+	alert(error);
 }
 
 /////////////////////////////////////////////
