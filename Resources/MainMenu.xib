@@ -12,8 +12,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="29"/>
 			<integer value="372"/>
+			<integer value="29"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1136,7 +1136,7 @@
 										<object class="NSCollectionView" id="339573232">
 											<reference key="NSNextResponder" ref="870397029"/>
 											<int key="NSvFlags">274</int>
-											<string key="NSFrameSize">{620, 832}</string>
+											<string key="NSFrameSize">{699, 832}</string>
 											<reference key="NSSuperview" ref="870397029"/>
 											<string key="NSMinGridSize">{0, 0}</string>
 											<string key="NSMaxGridSize">{0, 0}</string>
@@ -1158,7 +1158,7 @@
 											<int key="NSDraggingSourceMaskForNonLocal">0</int>
 										</object>
 									</object>
-									<string key="NSFrame">{{1, 1}, {620, 832}}</string>
+									<string key="NSFrame">{{1, 1}, {699, 832}}</string>
 									<reference key="NSSuperview" ref="872285351"/>
 									<reference key="NSNextKeyView" ref="339573232"/>
 									<reference key="NSDocView" ref="339573232"/>
@@ -1191,7 +1191,7 @@
 									<double key="NSPercent">0.63157892227172852</double>
 								</object>
 							</object>
-							<string key="NSFrame">{{253, 0}, {622, 834}}</string>
+							<string key="NSFrame">{{174, 0}, {701, 834}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSNextKeyView" ref="870397029"/>
 							<int key="NSsFlags">562</int>
@@ -1297,7 +1297,7 @@
 												</object>
 											</object>
 											<double key="NSRowHeight">17</double>
-											<int key="NSTvFlags">314572800</int>
+											<int key="NSTvFlags">316669952</int>
 											<reference key="NSDelegate"/>
 											<reference key="NSDataSource"/>
 											<int key="NSColumnAutoresizingStyle">0</int>
@@ -1307,7 +1307,7 @@
 											<int key="NSTableViewDraggingDestinationStyle">0</int>
 										</object>
 									</object>
-									<string key="NSFrame">{{1, 17}, {253, 816}}</string>
+									<string key="NSFrame">{{1, 17}, {173, 816}}</string>
 									<reference key="NSSuperview" ref="973455009"/>
 									<reference key="NSNextKeyView" ref="278150276"/>
 									<reference key="NSDocView" ref="278150276"/>
@@ -1329,6 +1329,7 @@
 									<int key="NSvFlags">-2147483392</int>
 									<string key="NSFrame">{{-100, -100}, {141, 15}}</string>
 									<reference key="NSSuperview" ref="973455009"/>
+									<bool key="NSEnabled">YES</bool>
 									<int key="NSsFlags">1</int>
 									<reference key="NSTarget" ref="973455009"/>
 									<string key="NSAction">_doScroller:</string>
@@ -1341,7 +1342,7 @@
 										<bool key="EncodedWithXMLCoder">YES</bool>
 										<reference ref="56478860"/>
 									</object>
-									<string key="NSFrame">{{1, 0}, {253, 17}}</string>
+									<string key="NSFrame">{{1, 0}, {173, 17}}</string>
 									<reference key="NSSuperview" ref="973455009"/>
 									<reference key="NSNextKeyView" ref="56478860"/>
 									<reference key="NSDocView" ref="56478860"/>
@@ -1350,10 +1351,10 @@
 								</object>
 								<reference ref="518829601"/>
 							</object>
-							<string key="NSFrameSize">{255, 834}</string>
+							<string key="NSFrameSize">{175, 834}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSNextKeyView" ref="863925009"/>
-							<int key="NSsFlags">530</int>
+							<int key="NSsFlags">658</int>
 							<reference key="NSVScroller" ref="1123750"/>
 							<reference key="NSHScroller" ref="88898817"/>
 							<reference key="NSContentView" ref="863925009"/>
