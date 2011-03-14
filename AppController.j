@@ -10,6 +10,7 @@
 @import "StatFile.j"
 @import "PhotoItem.j"
 @import "PhotoData.j"
+@import "EKActivityIndicatorView.j"
 
 
 @implementation AppController : CPObject
@@ -20,6 +21,9 @@
 	@outlet CPTableView _statisticsTableView;
 	
 	CPArray _csvFileArray;
+	
+	EKActivityIndicatorView _loadingView;
+	CPTimer _loadingTimer;
 	
 	int _receiveCount;
 }
@@ -51,6 +55,11 @@
 	[_collectionView setMinItemSize:CGSizeMake(150, 150)];
 	[_collectionView setMaxItemSize:CGSizeMake(150, 150)];
 	[_collectionView setBackgroundColor:[CPColor lightGrayColor]];
+	
+	// Make the loading view for when it's needed
+	_loadingView = [[EKActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+	[_collectionView addSubview:_loadingView];
+	[_loadingView setCenter:[_collectionView center]];
 }
 
 /////////////////////////////////////////////
@@ -76,6 +85,14 @@ objectValueForTableColumn:(CPTableColumn)tableColumn
 // respond to the selection changing by loading a new data set
 - (void)tableViewSelectionDidChange:(CPNotification)aNotification
 {
+	// create a timer to display the loading view and clear the collection view
+	_loadingTimer = [CPTimer scheduledTimerWithTimeInterval:0.15
+									 				 target:_loadingView
+												   selector:@selector(startAnimating)
+												   userInfo:null
+													repeats:NO];
+	[_collectionView setContent:[[CPArray alloc] init]];
+	
 	// set day to the StatFile for the selected row
 	var day = [_csvFileArray objectAtIndex:[_statisticsTableView selectedRow]];
 	
@@ -121,6 +138,8 @@ objectValueForTableColumn:(CPTableColumn)tableColumn
 	// if we've loaded all the URLs
 	if (_receiveCount == [day count])
 	{
+		[_loadingTimer invalidate];
+		[_loadingView stopAnimating];
 		// make PhotoData objects in an array for every photo in the day. Use that array for the
 		// collection view's data.
 		var dataArray = [[CPArray alloc] init];
