@@ -47,8 +47,8 @@
 	[prototypeItem setView:[[PhotoItem alloc] init]];
 	[_collectionView setDelegate:self];
 	[_collectionView setItemPrototype:prototypeItem];
-	[_collectionView setMinItemSize:CGSizeMake(100, 100)];
-	[_collectionView setMaxItemSize:CGSizeMake(100, 100)];
+	[_collectionView setMinItemSize:CGSizeMake(150, 150)];
+	[_collectionView setMaxItemSize:CGSizeMake(150, 150)];
 	[_collectionView setBackgroundColor:[CPColor lightGrayColor]];
 }
 
@@ -120,7 +120,7 @@ objectValueForTableColumn:(CPTableColumn)tableColumn
 	
 	for (i = 0; i < data.sizes.size.length; i++)
 	{
-		if (data.sizes.size[i].label == "Thumbnail")
+		if (data.sizes.size[i].label == "Small")
 		{
 			[day addPhotoURL:data.sizes.size[i].source forPhotoID:[urlComponents objectAtIndex:5]];
 		}
