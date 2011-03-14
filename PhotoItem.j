@@ -23,12 +23,12 @@
 		[_imageView setAutoresizingMask:CPViewWidthSizable | CPViewHeightSizable];
 		[_imageView setImageScaling:CPScaleProportionally];
 		[_imageView setHasShadow:YES];
-		[self addSubview:imageView];
+		[self addSubview:_imageView];
 	}
 	
 	[_image setDelegate:nil];
 	
-	_image = [[CPImage alloc] initWithContentsOfFile:thumbForFlickrPhoto(anObject)];
+	_image = [[CPImage alloc] initWithContentsOfFile:object];
 
     [_image setDelegate:self];
     
@@ -44,9 +44,3 @@
 }
 
 @end
-
-// Javascript helper method from Cappuccino FlickrPhoto sample app
-function thumbForFlickrPhoto(photo)
-{
-    return "http://farm"+photo.farm+".static.flickr.com/"+photo.server+"/"+photo.id+"_"+photo.secret+"_m.jpg";
-}
