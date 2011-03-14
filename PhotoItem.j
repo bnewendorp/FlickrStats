@@ -7,15 +7,18 @@
  */
 
 @import <AppKit/CPView.j>
+@import "PhotoData.j"
 
 @implementation PhotoItem : CPView
 {
 	CPImage _image;
 	CPImageView _imageView;
+	PhotoData _photoData;
 }
 
 - (void)setRepresentedObject:(JSObject)object
 {
+	_photoData = object;
 	// setup the imageView if we haven't done it yet
 	if (!_imageView)
 	{
@@ -29,7 +32,7 @@
 	[_image setDelegate:nil];
 	
 	if (object != [CPNull null])
-		_image = [[CPImage alloc] initWithContentsOfFile:object];
+		_image = [[CPImage alloc] initWithContentsOfFile:[_photoData photoURL]];
 
     [_image setDelegate:self];
     
@@ -37,6 +40,16 @@
         [_imageView setImage:_image];
     else
         [_imageView setImage:nil];
+}
+
+- (void)mouseEntered:(CPEvent)event
+{
+	
+}
+
+- (void)mouseExited:(CPEvent)event
+{
+	
 }
 
 - (void)imageDidLoad:(CPImage)image

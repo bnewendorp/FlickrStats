@@ -9,6 +9,7 @@
 @import <Foundation/CPObject.j>
 @import "StatFile.j"
 @import "PhotoItem.j"
+@import "PhotoData.j"
 
 
 @implementation AppController : CPObject
@@ -117,10 +118,23 @@ objectValueForTableColumn:(CPTableColumn)tableColumn
 	
 	_receiveCount++;
 	
+	// if we've loaded all the URLs
 	if (_receiveCount == [day count])
 	{
+		// make PhotoData objects in an array for every photo in the day. Use that array for the
+		// collection view's data.
+		var dataArray = [[CPArray alloc] init];
+		var keyArray = [[day photoURLDictionary] allKeys];
+		for (i=0; i < [keyArray count]; i++)
+		{
+			var newData = [[PhotoData alloc] init];
+			[newData setPhotoID:[keyArray objectAtIndex:i]];
+			[newData setPhotoURL:[[day photoURLDictionary] valueForKey:[keyArray objectAtIndex:i]]];
+			[newData setViewCount:[[day viewCountDictionary] valueForKey:[keyArray objectAtIndex:i]]];
+			[dataArray addObject:newData];
+		}
 		[_collectionView reloadContent];
-		[_collectionView setContent:[[day photoURLDictionary] allValues]];
+		[_collectionView setContent:dataArray];
 	}
 }
 
