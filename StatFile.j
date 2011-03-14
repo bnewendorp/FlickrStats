@@ -8,7 +8,7 @@
 
 @import <Foundation/CPObject.j>
 
-
+// Class to track all the data from each CSV file
 @implementation StatFile : CPObject
 {
 	CPString _dataFilePath;

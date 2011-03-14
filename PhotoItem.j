@@ -9,6 +9,7 @@
 @import <AppKit/CPView.j>
 @import "PhotoData.j"
 
+// The items that the collection view draws
 @implementation PhotoItem : CPView
 {
 	CPImage _image;

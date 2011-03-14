@@ -8,13 +8,12 @@
 
 @import <Foundation/CPObject.j>
 
+// Class to store all the data we keep about each photo
 @implementation PhotoData : CPObject
 {
 	CPString photoID @accessors;
 	CPString photoURL @accessors;
 	CPString viewCount @accessors;
 }
-
-
 
 @end

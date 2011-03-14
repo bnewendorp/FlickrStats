@@ -143,6 +143,7 @@ objectValueForTableColumn:(CPTableColumn)tableColumn
 	{
 		[_loadingTimer invalidate];
 		[_loadingView stopAnimating];
+		
 		// make PhotoData objects in an array for every photo in the day. Use that array for the
 		// collection view's data.
 		var dataArray = [[CPArray alloc] init];
