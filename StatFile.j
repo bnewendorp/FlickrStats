@@ -93,8 +93,10 @@
 		if ([elements count] < 5)
 			break;
 		
+		var viewCountIndex = [elements count] - 1;
+		
 		// get the view count for the corresponding photo
-		[_viewCountDictionary setValue:[[elements objectAtIndex:5] intValue]
+		[_viewCountDictionary setValue:[[elements objectAtIndex:viewCountIndex] intValue]
 								forKey:[[elements objectAtIndex:1] lastPathComponent]];
 		
 		// also add a null object to the photoURL dictionary, to be replaced as needed
