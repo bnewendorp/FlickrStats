@@ -11,6 +11,8 @@
 	CPArray _viewCountArray;
 	CPArray _dateArray;
 	int _maxViewCount;
+	CPArray _dataPointArray;
+	int _circleDiameter;
 }
 
 - (id)initWithFrame:(CGRect)aFrame
@@ -19,7 +21,9 @@
 	{
 		_viewCountArray = [[CPArray alloc] initWithCapacity:30];
 		_dateArray = [[CPArray alloc] initWithCapacity:30];
+		_dataPointArray = [[CPArray alloc] initWithCapacity:30];
 		_maxViewCount = 0;
+		_circleDiameter = 10;
 	}
 	return self;
 }
@@ -45,17 +49,38 @@
 	var gc = [[CPGraphicsContext currentContext] graphicsPort];
 	CGContextSetStrokeColor(gc, [CPColor redColor]);
 	CGContextSetLineWidth(gc, 3.0);
+	CGContextSetLineJoin(gc, kCGLineJoinRound);
 	
-	// move to the origin
+	// draw the trendline first
 	CGContextBeginPath(gc);
 	for (var i=0; i < [_viewCountArray count]; i++)
 	{
 		var x = (centerX-totalWidth/2) + i*xIncrement;
 		var y = (centerY+totalHeight/2) - yViewHeight*[_viewCountArray objectAtIndex:i];
+		[_dataPointArray addObject:CPPointMake(x, y)];
 		CGContextAddLineToPoint(gc, x, y);
 	}
 	CGContextStrokePath(gc);
 	
+	// draw a circle at each data point
+	CGContextSetStrokeColor(gc, [CPColor whiteColor]);
+	CGContextSetFillColor(gc, [CPColor redColor]);
+	CGContextSetLineWidth(gc, 1.5);
+	for (var i=0; i < [_dataPointArray count]; i++)
+	{
+		var point = [_dataPointArray objectAtIndex:i];
+		CGContextFillEllipseInRect(gc, CPRectMake(point.x-_circleDiameter/2,
+												  point.y-_circleDiameter/2,
+												  _circleDiameter,
+												  _circleDiameter));
+		CGContextStrokeEllipseInRect(gc, CPRectMake(point.x-_circleDiameter/2,
+												  point.y-_circleDiameter/2,
+												  _circleDiameter,
+												  _circleDiameter));
+
+	}
+	
+	// draw the axes
 	
 }
 
