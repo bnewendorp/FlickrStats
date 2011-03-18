@@ -10,8 +10,8 @@
 {
 	CPArray _viewCountArray;
 	CPArray _dateArray;
-	int _maxViewCount;
 	CPArray _dataPointArray;
+	int _maxViewCount;
 	int _circleDiameter;
 }
 
@@ -21,7 +21,6 @@
 	{
 		_viewCountArray = [[CPArray alloc] initWithCapacity:30];
 		_dateArray = [[CPArray alloc] initWithCapacity:30];
-		_dataPointArray = [[CPArray alloc] initWithCapacity:30];
 		_maxViewCount = 0;
 		_circleDiameter = 10;
 	}
@@ -38,15 +37,19 @@
 
 - (void)drawRect:(CGRect)rect
 {
+	// recreate the array each time drawRect is called. Otherwise it keeps adding to itself
+	_dataPointArray = [[CPArray alloc] initWithCapacity:30];
+	
 	var centerX = CPRectGetWidth(rect) / 2;
 	var centerY = CPRectGetHeight(rect) / 2;
 	var totalWidth = 800;
 	var totalHeight = 200;
 	
 	var xIncrement = totalWidth / [_dateArray count];
-	var yViewHeight = totalHeight / _maxViewCount;
+	var yViewHeight = (totalHeight - 10) / _maxViewCount;
 	
 	var gc = [[CPGraphicsContext currentContext] graphicsPort];
+	
 	CGContextSetStrokeColor(gc, [CPColor redColor]);
 	CGContextSetLineWidth(gc, 3.0);
 	CGContextSetLineJoin(gc, kCGLineJoinRound);
@@ -55,7 +58,7 @@
 	CGContextBeginPath(gc);
 	for (var i=0; i < [_viewCountArray count]; i++)
 	{
-		var x = (centerX-totalWidth/2) + i*xIncrement;
+		var x = (centerX-totalWidth/2) + i*xIncrement + 10;
 		var y = (centerY+totalHeight/2) - yViewHeight*[_viewCountArray objectAtIndex:i];
 		[_dataPointArray addObject:CPPointMake(x, y)];
 		CGContextAddLineToPoint(gc, x, y);
@@ -77,11 +80,16 @@
 												  point.y-_circleDiameter/2,
 												  _circleDiameter,
 												  _circleDiameter));
-
 	}
 	
 	// draw the axes
-	
+	CGContextSetStrokeColor(gc, [CPColor grayColor]);
+	CGContextSetLineWidth(gc, 2.0);
+	CGContextBeginPath(gc);
+	CGContextAddLineToPoint(gc, (centerX-totalWidth/2), centerY - totalHeight/2);
+	CGContextAddLineToPoint(gc, (centerX-totalWidth/2), centerY + totalHeight/2);
+	CGContextAddLineToPoint(gc, (centerX+totalWidth/2), centerY + totalHeight/2);
+	CGContextStrokePath(gc);
 }
 
 @end
