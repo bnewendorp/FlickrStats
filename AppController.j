@@ -336,6 +336,18 @@ objectValueForTableColumn:(CPTableColumn)tableColumn
 	dataFile = [[StatFile alloc] initWithFilePath:
 						[[CPBundle mainBundle] pathForResource:"referrers-2011-03-11.csv"]];
 	[_csvFileArray addObject:dataFile];
+
+	dataFile = [[StatFile alloc] initWithFilePath:
+						[[CPBundle mainBundle] pathForResource:"referrers-2011-03-12.csv"]];
+	[_csvFileArray addObject:dataFile];
+
+	dataFile = [[StatFile alloc] initWithFilePath:
+						[[CPBundle mainBundle] pathForResource:"referrers-2011-03-13.csv"]];
+	[_csvFileArray addObject:dataFile];
+
+	dataFile = [[StatFile alloc] initWithFilePath:
+						[[CPBundle mainBundle] pathForResource:"referrers-2011-03-14.csv"]];
+	[_csvFileArray addObject:dataFile];
 }
 
 @end
