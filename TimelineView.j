@@ -58,8 +58,12 @@
 	CGContextBeginPath(gc);
 	for (var i=0; i < [_viewCountArray count]; i++)
 	{
+		// origin + the step forward for this value + 10 (to keep it off the axes)
 		var x = (centerX-totalWidth/2) + i*xIncrement + 10;
+		
+		// origin - height for one view & view count
 		var y = (centerY+totalHeight/2) - yViewHeight*[_viewCountArray objectAtIndex:i];
+		
 		[_dataPointArray addObject:CPPointMake(x, y)];
 		CGContextAddLineToPoint(gc, x, y);
 	}
