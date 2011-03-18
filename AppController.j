@@ -62,6 +62,13 @@
 											(CPRectGetHeight([_collectionView frame])-25) / 2,
 											50, 50)];
 	[_collectionView addSubview:_loadingView];
+
+	// load the previous row selection from user defaults, select it and scroll to it if necessary
+	var lastSelection = [[CPUserDefaults standardUserDefaults]
+											integerForKey:"lastTableViewSelection"];
+	[_statisticsTableView selectRowIndexes:[CPIndexSet indexSetWithIndex:lastSelection]
+	 												byExtendingSelection:NO];
+	[_statisticsTableView scrollRowToVisible:lastSelection];
 }
 
 /////////////////////////////////////////////
@@ -87,6 +94,10 @@ objectValueForTableColumn:(CPTableColumn)tableColumn
 // respond to the selection changing by loading a new data set
 - (void)tableViewSelectionDidChange:(CPNotification)aNotification
 {
+	// save the index so we can restore to it when the user comes back to the app
+	[[CPUserDefaults standardUserDefaults] setInteger:[_statisticsTableView selectedRow]
+											   forKey:"lastTableViewSelection"];
+	
 	// create a timer to display the loading view and clear the collection view
 	// use a timer in case it loads really fast and the timer isn't necessary
 	_loadingTimer = [CPTimer scheduledTimerWithTimeInterval:0.15
