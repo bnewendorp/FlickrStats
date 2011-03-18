@@ -10,6 +10,7 @@
 @import "StatFile.j"
 @import "PhotoItem.j"
 @import "PhotoData.j"
+@import "TimelineView.j"
 @import "EKActivityIndicatorView.j"
 
 
@@ -19,6 +20,8 @@
 
 	@outlet CPCollectionView _collectionView;
 	@outlet CPTableView _statisticsTableView;
+	@outlet TimelineView _timelineView;
+	@outlet CPSplitView _splitView;
 	
 	CPArray _csvFileArray;
 	
@@ -41,6 +44,13 @@
 	_csvFileArray = [[CPArray alloc] initWithCapacity:40];
 	
 	[self loadDataFiles];
+
+	// give the timeline all the data it needs
+	for (var i=0; i < [_csvFileArray count]; i++)
+	{
+		var file = [_csvFileArray objectAtIndex:i];
+		[_timelineView addViewCount:[file totalViewCount] forDate:[file displayName]];
+	}
 	
 	// setup the contents of the table view
 	[_statisticsTableView setDelegate:self];
@@ -111,7 +121,7 @@ objectValueForTableColumn:(CPTableColumn)tableColumn
 	var day = [_csvFileArray objectAtIndex:[_statisticsTableView selectedRow]];
 	
 	// request the photo URL for each photo in that day's statistics
-	for (i=0; i < [day count]; i++)
+	for (var i=0; i < [day count]; i++)
 	{
 		var request = [CPURLRequest requestWithURL:"http://flickr.com/services/rest/?method="+
 				"flickr.photos.getSizes&photo_id=" + encodeURIComponent([day photoIDForIndex:i]) +
@@ -139,7 +149,7 @@ objectValueForTableColumn:(CPTableColumn)tableColumn
 	// Separate the URL by "/", object 5 is the photo ID
 	var urlComponents = [data.sizes.size[0].url componentsSeparatedByString:"/"];
 	
-	for (i = 0; i < data.sizes.size.length; i++)
+	for (var i = 0; i < data.sizes.size.length; i++)
 	{
 		if (data.sizes.size[i].label == "Small")
 		{
@@ -159,7 +169,7 @@ objectValueForTableColumn:(CPTableColumn)tableColumn
 		// collection view's data.
 		var dataArray = [[CPArray alloc] init];
 		var keyArray = [[day photoURLDictionary] allKeys];
-		for (i=0; i < [keyArray count]; i++)
+		for (var i=0; i < [keyArray count]; i++)
 		{
 			var newData = [[PhotoData alloc] init];
 			[newData setPhotoID:[keyArray objectAtIndex:i]];

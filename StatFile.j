@@ -58,6 +58,18 @@
 	return [_viewCountDictionary count];
 }
 
+- (int)totalViewCount
+{
+	var keys = [_viewCountDictionary allKeys];
+	var totalCount = 0;
+	
+	for (var i=0; i < [keys count]; i++)
+	{
+		totalCount += [_viewCountDictionary valueForKey:[keys objectAtIndex:i]];
+	}
+	return totalCount;
+}
+
 - (CPString)photoIDForIndex:(int)index
 {
 	return [[_viewCountDictionary allKeys] objectAtIndex:index];
@@ -82,7 +94,7 @@
 {
 	// not the safest assumption that they all use \n, but it'll do
 	var lines = [csvString componentsSeparatedByString:"\n"];
-	for (i=1; i < [lines count]; i++)
+	for (var i=1; i < [lines count]; i++)
 	{
 		var line = [lines objectAtIndex:i];
 			
