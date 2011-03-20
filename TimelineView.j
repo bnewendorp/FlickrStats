@@ -207,7 +207,7 @@ var totalHeight = 150;
 		var centerX = parseInt(CPRectGetWidth(rect) / 2);
 		var centerY = parseInt(CPRectGetHeight(rect) / 2);
 		
-		CGContextSetStrokeColor(gc, [CPColor grayColor]);
+		CGContextSetStrokeColor(gc, [CPColor blackColor]);
 		CGContextSetLineWidth(gc, 2.0);
 		CGContextBeginPath(gc);
 		// add 1 to the x points to keep the lines entirely inside the layer
