@@ -53,6 +53,9 @@
 	}
 	[_timelineView setAppController:self];
 	
+	// configure the default height of the splitview
+	[_splitView setPosition:CGRectGetHeight([_splitView frame])-300 ofDividerAtIndex:0];
+	
 	// setup the collection view
 	// make a prototype PhotoItem first
 	var prototypeItem = [[CPCollectionViewItem alloc] init];
