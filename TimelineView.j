@@ -7,6 +7,7 @@
  */
 
 @import "DataPointLayer.j"
+@import "DatePopupView.j"
 
 var totalWidth = 800;
 var totalHeight = 150;
@@ -29,6 +30,8 @@ var totalHeight = 150;
 	CPTextView _leftDateLabel;
 	CPTextView _middleDateLabel;
 	CPTextView _rightDateLabel;
+	
+	DatePopupView _datePopupView;
 }
 
 - (id)initWithFrame:(CGRect)aFrame
@@ -71,6 +74,11 @@ var totalHeight = 150;
 		
 		[_leftDateLabel setAlignment:CPLeftTextAlignment];
 		[_middleDateLabel setAlignment:CPLeftTextAlignment];
+		
+		_datePopupView = [[DatePopupView alloc] initWithFrame:CPRectMake(0, 0, 90, 40)];
+		[_datePopupView setFrameOrigin:CPPointMake(100, 100)];
+		[_datePopupView setHidden:YES];
+		[self addSubview:_datePopupView];
 		
 		[self addSubview:_topLabel];
 		[self addSubview:_middleLabel];
@@ -156,7 +164,8 @@ var totalHeight = 150;
 	var originalPoint = [anEvent locationInWindow];
 	var newPoint = [self convertPoint:originalPoint fromView:[[self window] contentView]];
 	var hitLayer = [_timelineLayer hitTest:newPoint];
-	
+	var hitIndex = -1;
+
 	// check all the dataPointLayers to see if we hit one
 	for (var i=0; i < [_dataPointLayerArray count]; i++)
 	{
@@ -165,6 +174,7 @@ var totalHeight = 150;
 		// if we hit this layer, scale it up a bit
 		if (hitLayer == layer)
 		{
+			hitIndex = i;
 			[layer setAffineTransform:CGAffineTransformMakeScale(1.5, 1.5)];
 			[layer setFillColor:[CPColor redColor]];
 		}
@@ -174,6 +184,21 @@ var totalHeight = 150;
 			[layer setFillColor:[CPColor darkGrayColor]];
 		}
 		[layer setNeedsDisplay];
+	}
+	
+	// if we're hitting a point, hide the popup
+	if (hitLayer == nil || hitLayer == _timelineLayer)
+	{
+		[_datePopupView setHidden:YES];
+	}
+	else
+	{
+		[_datePopupView setHidden:NO];
+		[_datePopupView setDate:[_dateArray objectAtIndex:hitIndex]];
+		[_datePopupView setViewCount:[_viewCountArray objectAtIndex:hitIndex]];
+		var xPoint = newPoint.x - CGRectGetWidth([_datePopupView frame])/2;
+		var yPoint = newPoint.y - CGRectGetHeight([_datePopupView frame]);
+		[_datePopupView setFrameOrigin:CPPointMake(xPoint, yPoint)];
 	}
 }
 
