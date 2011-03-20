@@ -52,7 +52,7 @@
 
 - (CPString)displayName
 {
-	return [[CPString alloc] initWithFormat:"%@ %i, %i", _month, _day, _year];
+	return [[CPString alloc] initWithFormat:"%@ %i", _month, _day];
 }
 
 - (CPString)month
