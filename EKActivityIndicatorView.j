@@ -47,8 +47,9 @@
 {
     if (_isAnimating)
         return;
-
-	[self setCenter:[[self superview] center]];
+	
+	var rect = [[self superview] visibleRect];
+	[self setCenter:CGPointMake(rect.x, rect.y)];
     
     _isAnimating    = YES;
     _step           = 1;

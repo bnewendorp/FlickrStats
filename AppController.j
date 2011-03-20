@@ -68,8 +68,8 @@
 	
 	// Make the loading view for when it's needed
 	_loadingView = [[EKActivityIndicatorView alloc] initWithFrame:CGRectMake(
-		 									(CPRectGetWidth([_collectionView frame])-25) / 2,
-											(CPRectGetHeight([_collectionView frame])-25) / 2,
+		 									(CPRectGetWidth([_collectionView visibleRect])-25) / 2,
+											(CPRectGetHeight([_collectionView visibleRect])-25) / 2,
 											50, 50)];
 	[_collectionView addSubview:_loadingView];
 }
