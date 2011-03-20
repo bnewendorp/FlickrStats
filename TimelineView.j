@@ -23,6 +23,8 @@ var totalHeight = 150;
 	CALayer _rootLayer;
 	CALayer _axesLayer;
 	CALayer _timelineLayer;
+	
+	CPTextView _topLabel, _middleLabel, _leftDateLabel, _middleDateLabel, _rightDateLabel;
 }
 
 - (id)initWithFrame:(CGRect)aFrame
@@ -39,7 +41,7 @@ var totalHeight = 150;
 		_rootLayer = [CALayer layer];
 		[self setWantsLayer:YES];
 		[self setLayer:_rootLayer];
-		[_rootLayer setBackgroundColor:[CPColor whiteColor]];
+		[_rootLayer setBackgroundColor:[CPColor clearColor]];
 
 		// setup the axes layer
 		_axesLayer = [CALayer layer];
@@ -55,6 +57,17 @@ var totalHeight = 150;
 		[_timelineLayer setBounds:CGRectMake(0, 0, totalWidth, totalHeight)];
 		[_timelineLayer setBackgroundColor:[CPColor clearColor]];
 		[_rootLayer setNeedsDisplay];
+		
+		// setup the axes labels
+		// start with the vertical axis
+		_topLabel = [self labelWithTitle:"12345"];
+		_middleLabel = [self labelWithTitle:"12345"];
+
+		var baseFrame = [_timelineLayer frame];
+		[_topLabel setFrameOrigin:CGPointMake(baseFrame.x, baseFrame.y)];
+
+		[self addSubview:_topLabel];
+		[self addSubview:_middleLabel];
 	}
 	return self;
 }
@@ -80,7 +93,6 @@ var totalHeight = 150;
 		[[_dataPointLayerArray objectAtIndex:i] removeFromSuperlayer];
 	}
 	
-	// create the data point array
 	[_dataPointArray removeAllObjects];
 	[_dataPointLayerArray removeAllObjects];
 
@@ -106,8 +118,15 @@ var totalHeight = 150;
 		[_timelineLayer addSublayer:newLayer];
 		[_dataPointLayerArray addObject:newLayer]
 	}
+	
+	[self setAxesLabelValues];
 }
 
+- (void)setAxesLabelValues
+{
+	[_topLabel setStringValue:[CPString stringWithFormat:"%i", _maxViewCount]];
+	[_middleLabel setStringValue:[CPString stringWithFormat:"%i", _maxViewCount/2]];
+}
 
 /////////////////////////////////////////////
 // Event handling
@@ -203,6 +222,9 @@ var totalHeight = 150;
 	
 	[_timelineLayer setPosition:CPPointMake(centerX, centerY)];
 	[_axesLayer setPosition:CPPointMake(centerX, centerY)];
+	
+	[_topLabel setFrameOrigin:CGPointMake((centerX-totalWidth/2)-40, (centerY-totalHeight/2)-5)];
+	[_middleLabel setFrameOrigin:CGPointMake((centerX-totalWidth/2)-40, centerY-5)];
 }
 
 /////////////////////////////////////////////
