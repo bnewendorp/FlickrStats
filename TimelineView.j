@@ -59,6 +59,9 @@ var totalHeight = 150;
 	return self;
 }
 
+/////////////////////////////////////////////
+// Setup methods
+
 - (void)setAppController:(AppController)controller
 {
 	_appController = controller;
@@ -105,6 +108,10 @@ var totalHeight = 150;
 	}
 }
 
+
+/////////////////////////////////////////////
+// Event handling
+
 - (void)mouseMoved:(CPEvent)anEvent
 {
 	var originalPoint = [anEvent locationInWindow];
@@ -150,6 +157,9 @@ var totalHeight = 150;
 	}
 }
 
+/////////////////////////////////////////////
+// Drawing methods
+
 - (void)drawLayer:(CALayer)layer inContext:(CGContext)gc
 {
 	if (layer == _axesLayer)
@@ -183,6 +193,7 @@ var totalHeight = 150;
 	}
 }
 
+
 - (void)drawRect:(CGRect)rect
 {
 	// recenter the layers within the view, in case it was resized
@@ -193,5 +204,8 @@ var totalHeight = 150;
 	[_timelineLayer setPosition:CPPointMake(centerX, centerY)];
 	[_axesLayer setPosition:CPPointMake(centerX, centerY)];
 }
+
+/////////////////////////////////////////////
+// Helper methods
 
 @end
