@@ -19,7 +19,6 @@
 	CPWindow theWindow;
 
 	@outlet CPCollectionView _collectionView;
-	@outlet CPTableView _statisticsTableView;
 	@outlet TimelineView _timelineView;
 	@outlet CPSplitView _splitView;
 	
@@ -29,6 +28,7 @@
 	CPTimer _loadingTimer;
 	
 	int _receiveCount;
+	int _selectedIndex;
 }
 
 - (void)applicationDidFinishLaunching:(CPNotification)aNotification
@@ -51,10 +51,7 @@
 		var file = [_csvFileArray objectAtIndex:i];
 		[_timelineView addViewCount:[file totalViewCount] forDate:[file displayName]];
 	}
-	
-	// setup the contents of the table view
-	[_statisticsTableView setDelegate:self];
-	[_statisticsTableView setDataSource:self];
+	[_timelineView setAppController:self];
 	
 	// setup the collection view
 	// make a prototype PhotoItem first
@@ -72,41 +69,11 @@
 											(CPRectGetHeight([_collectionView frame])-25) / 2,
 											50, 50)];
 	[_collectionView addSubview:_loadingView];
-
-	// load the previous row selection from user defaults, select it and scroll to it if necessary
-	var lastSelection = [[CPUserDefaults standardUserDefaults]
-											integerForKey:"lastTableViewSelection"];
-	[_statisticsTableView selectRowIndexes:[CPIndexSet indexSetWithIndex:lastSelection]
-	 												byExtendingSelection:NO];
-	[_statisticsTableView scrollRowToVisible:lastSelection];
 }
 
-/////////////////////////////////////////////
-// Table view data source methods
-
-// return the number of values in the data source array
-- (int)numberOfRowsInTableView:(CPTableView)aTableView
+- (void)showDataForDayWithIndex:(int)index
 {
-	return [_csvFileArray count];
-}
-
-// return a CPString for each row in the table view
-- (id)tableView:(CPTableView)tableView
-objectValueForTableColumn:(CPTableColumn)tableColumn
-					  row:(int)row
-{
-	return [[_csvFileArray objectAtIndex:row] displayName];
-}
-
-/////////////////////////////////////////////
-// Table view delegate methods
-
-// respond to the selection changing by loading a new data set
-- (void)tableViewSelectionDidChange:(CPNotification)aNotification
-{
-	// save the index so we can restore to it when the user comes back to the app
-	[[CPUserDefaults standardUserDefaults] setInteger:[_statisticsTableView selectedRow]
-											   forKey:"lastTableViewSelection"];
+	_selectedIndex = index;
 	
 	// create a timer to display the loading view and clear the collection view
 	// use a timer in case it loads really fast and the timer isn't necessary
@@ -118,7 +85,7 @@ objectValueForTableColumn:(CPTableColumn)tableColumn
 	[_collectionView setContent:[[CPArray alloc] init]];
 	
 	// set day to the StatFile for the selected row
-	var day = [_csvFileArray objectAtIndex:[_statisticsTableView selectedRow]];
+	var day = [_csvFileArray objectAtIndex:_selectedIndex];
 	
 	// request the photo URL for each photo in that day's statistics
 	for (var i=0; i < [day count]; i++)
@@ -137,7 +104,7 @@ objectValueForTableColumn:(CPTableColumn)tableColumn
 - (void)connection:(CPJSONPConnection)aConnection didReceiveData:(CPString)data
 {
 	// set day to the StatFile for the selected row
-	var day = [_csvFileArray objectAtIndex:[_statisticsTableView selectedRow]];
+	var day = [_csvFileArray objectAtIndex:_selectedIndex];
 	
 	// CPSONPConnection gives a Javascript object back, not really a CPString
 	// Need to access the values in a JS way.
