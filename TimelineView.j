@@ -99,6 +99,17 @@ var totalHeight = 200;
 	}
 }
 
+- (void)mouseMoved:(CPEvent)anEvent
+{
+	var originalPoint = [anEvent locationInWindow];
+	var newPoint = [self  convertPoint:originalPoint fromView:[[self window] contentView]];
+	var hitLayer = [_timelineLayer hitTest:newPoint];
+
+	if (hitLayer != _timelineLayer)
+		[hitLayer setBackgroundColor:[CPColor blueColor]];
+	[hitLayer setNeedsDisplay];
+}
+
 - (void)drawLayer:(CALayer)layer inContext:(CGContext)gc
 {
 	if (layer == _axesLayer)
