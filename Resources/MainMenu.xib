@@ -1111,7 +1111,7 @@
 			<object class="NSWindowTemplate" id="972006081">
 				<int key="NSWindowStyleMask">7</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{934, 345}, {874, 835}}</string>
+				<string key="NSWindowRect">{{934, 344}, {874, 835}}</string>
 				<int key="NSWTFlags">1946157056</int>
 				<string key="NSWindowTitle">Window</string>
 				<string key="NSWindowClass">NSWindow</string>
@@ -1215,7 +1215,7 @@
 								</object>
 								<object class="NSCustomView" id="243293371">
 									<reference key="NSNextResponder" ref="367247434"/>
-									<int key="NSvFlags">274</int>
+									<int key="NSvFlags">266</int>
 									<string key="NSFrame">{{0, 683}, {874, 152}}</string>
 									<reference key="NSSuperview" ref="367247434"/>
 									<string key="NSClassName">TimelineView</string>
