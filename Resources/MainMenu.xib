@@ -1145,7 +1145,7 @@
 														<object class="NSCollectionView" id="339573232">
 															<reference key="NSNextResponder" ref="870397029"/>
 															<int key="NSvFlags">274</int>
-															<string key="NSFrameSize">{872, 672}</string>
+															<string key="NSFrameSize">{872, 679}</string>
 															<reference key="NSSuperview" ref="870397029"/>
 															<string key="NSMinGridSize">{0, 0}</string>
 															<string key="NSMaxGridSize">{0, 0}</string>
@@ -1167,7 +1167,7 @@
 															<int key="NSDraggingSourceMaskForNonLocal">0</int>
 														</object>
 													</object>
-													<string key="NSFrame">{{1, 1}, {872, 672}}</string>
+													<string key="NSFrame">{{1, 1}, {872, 679}}</string>
 													<reference key="NSSuperview" ref="872285351"/>
 													<reference key="NSNextKeyView" ref="339573232"/>
 													<reference key="NSDocView" ref="339573232"/>
@@ -1200,7 +1200,7 @@
 													<double key="NSPercent">0.63157892227172852</double>
 												</object>
 											</object>
-											<string key="NSFrameSize">{874, 674}</string>
+											<string key="NSFrameSize">{874, 681}</string>
 											<reference key="NSSuperview" ref="480598135"/>
 											<reference key="NSNextKeyView" ref="870397029"/>
 											<int key="NSsFlags">562</int>
@@ -1209,20 +1209,21 @@
 											<reference key="NSContentView" ref="870397029"/>
 										</object>
 									</object>
-									<string key="NSFrameSize">{874, 674}</string>
+									<string key="NSFrameSize">{874, 681}</string>
 									<reference key="NSSuperview" ref="367247434"/>
 									<string key="NSClassName">NSView</string>
 								</object>
 								<object class="NSCustomView" id="243293371">
 									<reference key="NSNextResponder" ref="367247434"/>
 									<int key="NSvFlags">266</int>
-									<string key="NSFrame">{{0, 683}, {874, 152}}</string>
+									<string key="NSFrame">{{0, 682}, {874, 153}}</string>
 									<reference key="NSSuperview" ref="367247434"/>
 									<string key="NSClassName">TimelineView</string>
 								</object>
 							</object>
 							<string key="NSFrameSize">{874, 835}</string>
 							<reference key="NSSuperview" ref="439893737"/>
+							<int key="NSDividerStyle">2</int>
 						</object>
 					</object>
 					<string key="NSFrameSize">{874, 835}</string>
