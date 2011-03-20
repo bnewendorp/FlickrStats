@@ -119,10 +119,12 @@ var totalHeight = 200;
 		if (hitLayer == layer)
 		{
 			[layer setAffineTransform:CGAffineTransformMakeScale(1.5, 1.5)];
+			[layer setFillColor:[CPColor redColor]];
 		}
 		else
 		{
 			[layer setAffineTransform:CGAffineTransformMakeIdentity()];
+			[layer setFillColor:[CPColor darkGrayColor]];
 		}
 		[layer setNeedsDisplay];
 	}
@@ -166,7 +168,7 @@ var totalHeight = 200;
 	}
 	else if (layer == _timelineLayer)
 	{
-		CGContextSetStrokeColor(gc, [CPColor redColor]);
+		CGContextSetStrokeColor(gc, [CPColor darkGrayColor]);
 		CGContextSetLineWidth(gc, 3.0);
 		CGContextSetLineJoin(gc, kCGLineJoinRound);
 		// draw the trendline first
