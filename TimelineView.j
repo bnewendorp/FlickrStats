@@ -43,7 +43,6 @@ var totalHeight = 200;
 		_axesLayer = [CALayer layer];
 		[_rootLayer addSublayer:_axesLayer];
 		[_axesLayer setDelegate:self];
-		[_axesLayer setAnchorPoint:CPPointMakeZero()];
 		[_axesLayer setBounds:CGRectMake(0, 0, totalWidth, totalHeight)];
 		[_axesLayer setBackgroundColor:[CPColor clearColor]];
 		
@@ -51,7 +50,6 @@ var totalHeight = 200;
 		_timelineLayer = [CALayer layer];
 		[_rootLayer addSublayer:_timelineLayer];
 		[_timelineLayer setDelegate:self];
-		[_timelineLayer setAnchorPoint:CPPointMakeZero()];
 		[_timelineLayer setBounds:CGRectMake(0, 0, totalWidth, totalHeight)];
 		[_timelineLayer setBackgroundColor:[CPColor clearColor]];
 		[_rootLayer setNeedsDisplay];
@@ -160,8 +158,8 @@ var totalHeight = 200;
 	var centerX = parseInt(CPRectGetWidth(rect) / 2);
 	var centerY = parseInt(CPRectGetHeight(rect) / 2);
 	
-	[_timelineLayer setPosition:CPPointMake(centerX-(totalWidth/2), centerY-(totalHeight/2))];
-	[_axesLayer setPosition:CPPointMake(centerX-(totalWidth/2), centerY-(totalHeight/2))];
+	[_timelineLayer setPosition:CPPointMake(centerX, centerY)];
+	[_axesLayer setPosition:CPPointMake(centerX, centerY)];
 }
 
 @end
