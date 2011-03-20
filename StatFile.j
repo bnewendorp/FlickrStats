@@ -36,7 +36,8 @@
 		[self parseCSVString:[rawData rawString]];
 		
 		// set the display name based on the file name
-		var fileNameElements = [[_dataFilePath lastPathComponent] componentsSeparatedByString:"-"];
+		var fileNameElements = [[[_dataFilePath lastPathComponent] stringByDeletingPathExtension]
+		 														componentsSeparatedByString:"-"];
 		_month = [self monthNameForInt:[[fileNameElements objectAtIndex:2] intValue]];
 		_day = [[fileNameElements objectAtIndex:3] intValue];
 		_year = [[fileNameElements objectAtIndex:1] intValue];
