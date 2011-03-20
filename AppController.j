@@ -13,6 +13,7 @@
 @import "TimelineView.j"
 @import "EKActivityIndicatorView.j"
 
+var splitViewHeight = 250;
 
 @implementation AppController : CPObject
 {
@@ -54,7 +55,7 @@
 	[_timelineView setAppController:self];
 	
 	// configure the default height of the splitview
-	[_splitView setPosition:CGRectGetHeight([_splitView frame])-300 ofDividerAtIndex:0];
+	[_splitView setPosition:CGRectGetHeight([_splitView frame])-splitViewHeight ofDividerAtIndex:0];
 	[_splitView setDelegate:self];
 	
 	// setup the collection view
@@ -109,12 +110,12 @@
 constrainSplitPosition:(float)proposedPosition
 		   ofSubviewAt:(int)subviewIndex
 {
-	return CGRectGetHeight([_splitView frame])-300;
+	return CGRectGetHeight([_splitView frame])-splitViewHeight;
 }
 
 - (void)splitViewDidResizeSubviews:(CPNotification)notification
 {
-	[_splitView setPosition:CGRectGetHeight([_splitView frame])-300 ofDividerAtIndex:0];
+	[_splitView setPosition:CGRectGetHeight([_splitView frame])-splitViewHeight ofDividerAtIndex:0];
 }
 
 /////////////////////////////////////////////
