@@ -17,7 +17,8 @@
 	CPDictionary _photoURLDictionary;
 	
 	CPString _month;
-	int _day, _year;
+	int _day;
+	int _year;
 }
 
 - (id)initWithFilePath:(CPString)filePath
