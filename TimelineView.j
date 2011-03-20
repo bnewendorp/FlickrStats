@@ -9,7 +9,7 @@
 @import "DataPointLayer.j"
 
 var totalWidth = 800;
-var totalHeight = 200;
+var totalHeight = 150;
 
 @implementation TimelineView : CPView
 {
