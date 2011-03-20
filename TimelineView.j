@@ -102,12 +102,22 @@ var totalHeight = 200;
 - (void)mouseMoved:(CPEvent)anEvent
 {
 	var originalPoint = [anEvent locationInWindow];
-	var newPoint = [self  convertPoint:originalPoint fromView:[[self window] contentView]];
+	var newPoint = [self convertPoint:originalPoint fromView:[[self window] contentView]];
 	var hitLayer = [_timelineLayer hitTest:newPoint];
-
-	if (hitLayer != _timelineLayer)
-		[hitLayer setBackgroundColor:[CPColor blueColor]];
-	[hitLayer setNeedsDisplay];
+	
+	for (var i=0; i < [_dataPointLayerArray count]; i++)
+	{
+		var layer = [_dataPointLayerArray objectAtIndex:i];
+		if (hitLayer == layer)
+		{
+			[layer setBackgroundColor:[CPColor blueColor]];
+		}
+		else
+		{
+			[layer setBackgroundColor:[CPColor greenColor]];
+		}
+		[layer setNeedsDisplay];
+	}
 }
 
 - (void)drawLayer:(CALayer)layer inContext:(CGContext)gc
