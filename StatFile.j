@@ -12,11 +12,12 @@
 @implementation StatFile : CPObject
 {
 	CPString _dataFilePath;
-	CPString _displayName;
 	
-//	CPArray _photoIDArray;
 	CPDictionary _viewCountDictionary;
 	CPDictionary _photoURLDictionary;
+	
+	CPString _month;
+	int _day, _year;
 }
 
 - (id)initWithFilePath:(CPString)filePath
@@ -35,10 +36,9 @@
 		
 		// set the display name based on the file name
 		var fileNameElements = [[_dataFilePath lastPathComponent] componentsSeparatedByString:"-"];
-		_displayName = [[CPString alloc] initWithFormat:"%@ %i, %i",
-								[self monthNameForInt:[[fileNameElements objectAtIndex:2] intValue]],
-								[[fileNameElements objectAtIndex:3] intValue],
-								[[fileNameElements objectAtIndex:1] intValue]];
+		_month = [self monthNameForInt:[[fileNameElements objectAtIndex:2] intValue]];
+		_day = [[fileNameElements objectAtIndex:3] intValue];
+		_year = [[fileNameElements objectAtIndex:1] intValue];
 	}
 	return self;
 }
@@ -50,7 +50,22 @@
 
 - (CPString)displayName
 {
-	return _displayName;
+	return [[CPString alloc] initWithFormat:"%@ %i, %i", _month, _day, _year];
+}
+
+- (CPString)month
+{
+	return _month;
+}
+
+- (int)day
+{
+	return _day;
+}
+
+- (int)year
+{
+	return _year;
 }
 
 - (int)count
