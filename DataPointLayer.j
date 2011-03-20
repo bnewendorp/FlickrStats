@@ -19,16 +19,10 @@ var bounds = 16;
 	if (self = [super init])
 	{
 		[self setDelegate:self];
-		[self setAnchorPoint:CPPointMakeZero()];
 		[self setBounds:CGRectMake(0, 0, bounds, bounds)];
 		[self setBackgroundColor:[CPColor clearColor]];
 	}
 	return self;
-}
-
-- (int)boundSize
-{
-	return bounds;
 }
 
 - (void)drawLayer:(CALayer)layer inContext:(CGContext)gc

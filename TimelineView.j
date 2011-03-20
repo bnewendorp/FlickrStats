@@ -93,7 +93,7 @@ var totalHeight = 200;
 		
 		// setup a new DataPointLayer for each point
 		var newLayer = [[DataPointLayer alloc] init];
-		[newLayer setPosition:CPPointMake(x-[newLayer boundSize]/2, y-[newLayer boundSize]/2)];
+		[newLayer setPosition:CPPointMake(x, y)];
 		[_timelineLayer addSublayer:newLayer];
 		[_dataPointLayerArray addObject:newLayer]
 	}
@@ -110,11 +110,11 @@ var totalHeight = 200;
 		var layer = [_dataPointLayerArray objectAtIndex:i];
 		if (hitLayer == layer)
 		{
-			[layer setBackgroundColor:[CPColor blueColor]];
+			[layer setAffineTransform:CGAffineTransformMakeScale(1.5, 1.5)];
 		}
 		else
 		{
-			[layer setBackgroundColor:[CPColor greenColor]];
+			[layer setAffineTransform:CGAffineTransformMakeIdentity()];
 		}
 		[layer setNeedsDisplay];
 	}
