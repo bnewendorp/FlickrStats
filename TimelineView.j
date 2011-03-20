@@ -24,7 +24,11 @@ var totalHeight = 150;
 	CALayer _axesLayer;
 	CALayer _timelineLayer;
 	
-	CPTextView _topLabel, _middleLabel, _leftDateLabel, _middleDateLabel, _rightDateLabel;
+	CPTextView _topLabel;
+	CPTextView _middleLabel;
+	CPTextView _leftDateLabel;
+	CPTextView _middleDateLabel;
+	CPTextView _rightDateLabel;
 }
 
 - (id)initWithFrame:(CGRect)aFrame
@@ -59,15 +63,20 @@ var totalHeight = 150;
 		[_rootLayer setNeedsDisplay];
 		
 		// setup the axes labels
-		// start with the vertical axis
 		_topLabel = [self labelWithTitle:"12345"];
 		_middleLabel = [self labelWithTitle:"12345"];
-
-		var baseFrame = [_timelineLayer frame];
-		[_topLabel setFrameOrigin:CGPointMake(baseFrame.x, baseFrame.y)];
-
+		_leftDateLabel = [self labelWithTitle:"SomeMonth 1"];
+		_middleDateLabel = [self labelWithTitle:"SomeMonth 15"];
+		_rightDateLabel = [self labelWithTitle:"SomeMonth 30"];
+		
+		[_leftDateLabel setAlignment:CPLeftTextAlignment];
+		[_middleDateLabel setAlignment:CPLeftTextAlignment];
+		
 		[self addSubview:_topLabel];
 		[self addSubview:_middleLabel];
+		[self addSubview:_leftDateLabel];
+		[self addSubview:_middleDateLabel];
+		[self addSubview:_rightDateLabel];
 	}
 	return self;
 }
@@ -126,6 +135,17 @@ var totalHeight = 150;
 {
 	[_topLabel setStringValue:[CPString stringWithFormat:"%i", _maxViewCount]];
 	[_middleLabel setStringValue:[CPString stringWithFormat:"%i", _maxViewCount/2]];
+	
+	// don't setup the date labels unless we have a few values to use
+	if ([_dateArray count] > 2)
+	{
+		[_leftDateLabel setStringValue:[CPString stringWithFormat:"%@",
+												[_dateArray objectAtIndex:0]]];
+		[_middleDateLabel setStringValue:[CPString stringWithFormat:"%@",
+												[_dateArray objectAtIndex:parseInt([_dateArray count]/2)]]];
+		[_rightDateLabel setStringValue:[CPString stringWithFormat:"%@",
+												[_dateArray objectAtIndex:[_dateArray count]-1]]];
+	}
 }
 
 /////////////////////////////////////////////
@@ -223,8 +243,23 @@ var totalHeight = 150;
 	[_timelineLayer setPosition:CPPointMake(centerX, centerY)];
 	[_axesLayer setPosition:CPPointMake(centerX, centerY)];
 	
+	// left of the axis by 40px, at the top of the Y axis
 	[_topLabel setFrameOrigin:CGPointMake((centerX-totalWidth/2)-40, (centerY-totalHeight/2)-5)];
+	
+	// left of the axis by 40 px, at the middle of the Y axis
 	[_middleLabel setFrameOrigin:CGPointMake((centerX-totalWidth/2)-40, centerY-5)];
+	
+	// at the left side of the X axis, below the X axis by 5px
+	[_leftDateLabel setFrameOrigin:CGPointMake((centerX-totalWidth/2), (centerY+totalHeight/2)+5)];
+	
+	// middle of the timeline - the label's width/2, below the X axis by 5px
+	[_middleDateLabel setFrameOrigin:CGPointMake(centerX-CPRectGetWidth([_middleDateLabel frame])/2,
+												(centerY+totalHeight/2)+5)];
+	
+	// Right of the X axis - the label's width, below the X axis by 5px
+	[_rightDateLabel setFrameOrigin:CGPointMake((centerX+totalWidth/2) - 
+															CPRectGetWidth([_rightDateLabel frame]),
+												(centerY+totalHeight/2)+5)];
 }
 
 /////////////////////////////////////////////
@@ -236,7 +271,7 @@ var totalHeight = 150;
 	var label = [[CPTextField alloc] initWithFrame:CGRectMakeZero()];
 	
 	[label setStringValue:title];
-	[label setTextColor:[CPColor darkGrayColor]];
+	[label setTextColor:[CPColor blackColor]];
 	[label setAlignment:CPRightTextAlignment];
 	[label sizeToFit];
 	
