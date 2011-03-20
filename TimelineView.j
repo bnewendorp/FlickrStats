@@ -13,6 +13,7 @@ var totalHeight = 200;
 
 @implementation TimelineView : CPView
 {
+	AppController _appController;
 	CPArray _viewCountArray;
 	CPArray _dateArray;
 	CPArray _dataPointArray;
@@ -57,6 +58,11 @@ var totalHeight = 200;
 	return self;
 }
 
+- (void)setAppController:(AppController)controller
+{
+	_appController = controller;
+}
+
 - (void)addViewCount:(int)count forDate:(CPString)date
 {
 	[_dateArray addObject:date];
@@ -72,6 +78,7 @@ var totalHeight = 200;
 	
 	// create the data point array
 	_dataPointArray = [[CPArray alloc] initWithCapacity:30];
+	_dataPointLayerArray = [[CPArray alloc] initWithCapacity:30];
 
 	// calculate some values used for positioning the points
 	var centerX = parseInt(CPRectGetWidth([_timelineLayer frame]) / 2);
@@ -103,9 +110,12 @@ var totalHeight = 200;
 	var newPoint = [self convertPoint:originalPoint fromView:[[self window] contentView]];
 	var hitLayer = [_timelineLayer hitTest:newPoint];
 	
+	// check all the dataPointLayers to see if we hit one
 	for (var i=0; i < [_dataPointLayerArray count]; i++)
 	{
 		var layer = [_dataPointLayerArray objectAtIndex:i];
+		
+		// if we hit this layer, scale it up a bit
 		if (hitLayer == layer)
 		{
 			[layer setAffineTransform:CGAffineTransformMakeScale(1.5, 1.5)];
@@ -115,6 +125,25 @@ var totalHeight = 200;
 			[layer setAffineTransform:CGAffineTransformMakeIdentity()];
 		}
 		[layer setNeedsDisplay];
+	}
+}
+
+- (void)mouseUp:(CPEvent)anEvent
+{
+	var originalPoint = [anEvent locationInWindow];
+	var newPoint = [self convertPoint:originalPoint fromView:[[self window] contentView]];
+	var hitLayer = [_timelineLayer hitTest:newPoint];
+	
+	// check all the dataPointLayers to see if we hit one
+	for (var i=0; i < [_dataPointLayerArray count]; i++)
+	{
+		var layer = [_dataPointLayerArray objectAtIndex:i];
+		
+		// if we hit this layer, scale it up a bit
+		if (hitLayer == layer)
+		{
+			[_appController showDataForDayWithIndex:i];
+		}
 	}
 }
 
