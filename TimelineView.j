@@ -66,7 +66,7 @@ var totalHeight = 200;
 	if (count > _maxViewCount)
 		_maxViewCount = count;
 	
-	// remove all the current point layers
+	// remove all the current dataPoint layers
 	for (var i=0; i < [_dataPointLayerArray count]; i++)
 	{
 		[[_dataPointLayerArray objectAtIndex:i] removeFromSuperlayer];
@@ -93,7 +93,7 @@ var totalHeight = 200;
 		
 		// setup a new DataPointLayer for each point
 		var newLayer = [[DataPointLayer alloc] init];
-		[newLayer setPosition:CPPointMake(x-10, y-10)];
+		[newLayer setPosition:CPPointMake(x-[newLayer boundSize]/2, y-[newLayer boundSize]/2)];
 		[_timelineLayer addSublayer:newLayer];
 		[_dataPointLayerArray addObject:newLayer]
 	}
