@@ -31,6 +31,7 @@ var totalHeight = 150;
 	{
 		_viewCountArray = [[CPArray alloc] initWithCapacity:30];
 		_dateArray = [[CPArray alloc] initWithCapacity:30];
+		_dataPointArray = [[CPArray alloc] initWithCapacity:30];
 		_dataPointLayerArray = [[CPArray alloc] initWithCapacity:30];
 		_maxViewCount = 0;
 		
@@ -77,8 +78,8 @@ var totalHeight = 150;
 	}
 	
 	// create the data point array
-	_dataPointArray = [[CPArray alloc] initWithCapacity:30];
-	_dataPointLayerArray = [[CPArray alloc] initWithCapacity:30];
+	[_dataPointArray removeAllObjects];
+	[_dataPointLayerArray removeAllObjects];
 
 	// calculate some values used for positioning the points
 	var centerX = parseInt(CPRectGetWidth([_timelineLayer frame]) / 2);
