@@ -208,4 +208,17 @@ var totalHeight = 150;
 /////////////////////////////////////////////
 // Helper methods
 
+
+- (CPTextField)labelWithTitle:(CPString)title
+{
+	var label = [[CPTextField alloc] initWithFrame:CGRectMakeZero()];
+	
+	[label setStringValue:title];
+	[label setTextColor:[CPColor darkGrayColor]];
+	[label setAlignment:CPRightTextAlignment];
+	[label sizeToFit];
+	
+	return label;
+}
+
 @end
