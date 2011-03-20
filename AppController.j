@@ -55,6 +55,7 @@
 	
 	// configure the default height of the splitview
 	[_splitView setPosition:CGRectGetHeight([_splitView frame])-300 ofDividerAtIndex:0];
+	[_splitView setDelegate:self];
 	
 	// setup the collection view
 	// make a prototype PhotoItem first
@@ -99,6 +100,21 @@
 		[CPJSONPConnection sendRequest:request callback:"jsoncallback" delegate:self];
 	}
 	_receiveCount = 0;
+}
+
+/////////////////////////////////////////////
+// CPSplitView delegate methods
+
+- (float)splitView:(CPSplitView)aSpiltView
+constrainSplitPosition:(float)proposedPosition
+		   ofSubviewAt:(int)subviewIndex
+{
+	return CGRectGetHeight([_splitView frame])-300;
+}
+
+- (void)splitViewDidResizeSubviews:(CPNotification)notification
+{
+	[_splitView setPosition:CGRectGetHeight([_splitView frame])-300 ofDividerAtIndex:0];
 }
 
 /////////////////////////////////////////////
