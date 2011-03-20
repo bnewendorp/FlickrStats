@@ -197,7 +197,7 @@ var totalHeight = 150;
 		[_datePopupView setDate:[_dateArray objectAtIndex:hitIndex]];
 		[_datePopupView setViewCount:[_viewCountArray objectAtIndex:hitIndex]];
 		var xPoint = newPoint.x - CGRectGetWidth([_datePopupView frame])/2;
-		var yPoint = newPoint.y - CGRectGetHeight([_datePopupView frame]);
+		var yPoint = newPoint.y - CGRectGetHeight([_datePopupView frame]) - 12;
 		[_datePopupView setFrameOrigin:CPPointMake(xPoint, yPoint)];
 	}
 }
