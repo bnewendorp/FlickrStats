@@ -31,6 +31,8 @@ var totalHeight = 150;
 	CPTextView _middleDateLabel;
 	CPTextView _rightDateLabel;
 	
+	CPTextView _mainTitle;
+	
 	DatePopupView _datePopupView;
 }
 
@@ -75,16 +77,23 @@ var totalHeight = 150;
 		[_leftDateLabel setAlignment:CPLeftTextAlignment];
 		[_middleDateLabel setAlignment:CPLeftTextAlignment];
 		
-		_datePopupView = [[DatePopupView alloc] initWithFrame:CPRectMake(0, 0, 90, 40)];
-		[_datePopupView setFrameOrigin:CPPointMake(100, 100)];
-		[_datePopupView setHidden:YES];
-		[self addSubview:_datePopupView];
-		
 		[self addSubview:_topLabel];
 		[self addSubview:_middleLabel];
 		[self addSubview:_leftDateLabel];
 		[self addSubview:_middleDateLabel];
 		[self addSubview:_rightDateLabel];
+		
+		_mainTitle = [self labelWithTitle:"bnewendorp's Daily Flickr Stats"]
+		[_mainTitle setFont:[CPFont boldSystemFontOfSize:16.0]];
+		[_mainTitle setAlignment:CPCenterTextAlignment];
+		[_mainTitle sizeToFit];
+		[self addSubview:_mainTitle];
+		
+		_datePopupView = [[DatePopupView alloc] initWithFrame:CPRectMake(0, 0, 90, 40)];
+		[_datePopupView setFrameOrigin:CPPointMake(100, 100)];
+		[_datePopupView setHidden:YES];
+		[_datePopupView setAlphaValue:0.9];
+		[self addSubview:_datePopupView];
 	}
 	return self;
 }
@@ -285,6 +294,9 @@ var totalHeight = 150;
 	[_rightDateLabel setFrameOrigin:CGPointMake((centerX+totalWidth/2) - 
 															CPRectGetWidth([_rightDateLabel frame]),
 												(centerY+totalHeight/2)+5)];
+	
+	// Centered on the X axis, 10px from the top
+	[_mainTitle setFrameOrigin:CGPointMake(centerX-CPRectGetWidth([_mainTitle frame])/2, 10)];
 }
 
 /////////////////////////////////////////////
