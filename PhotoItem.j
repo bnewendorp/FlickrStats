@@ -74,7 +74,11 @@
 	[_captionView setHidden:YES];
 	
 	// make a label to put insnide the caption
-	var label = [self labelWithTitle:"View count: " + [_photoData viewCount]];
+	var label;
+	if ([_photoData viewCount] != 1)
+		label = [self labelWithTitle:[_photoData viewCount] + " views"];
+	else
+		label = [self labelWithTitle:"1 view"];
 	[label setFrameOrigin:CGPointMake(0, 0)];
 	[label setFrame:CPRectCreateCopy([_captionView bounds])];
 	[_captionView addSubview:label];
