@@ -191,6 +191,7 @@ var totalHeight = 150;
 		}
 		else if (i == _currentlySelectedIndex)
 		{
+			[layer setAffineTransform:CGAffineTransformMakeScale(1.5, 1.5)];
 			[layer setFillColor:[CPColor colorWithCalibratedRed:0.8 green:0.0 blue:0.0 alpha:1.0]];
 		}
 		else if (i != _currentlySelectedIndex)
