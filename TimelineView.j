@@ -20,6 +20,7 @@ var totalHeight = 150;
 	CPArray _dataPointArray;
 	CPArray _dataPointLayerArray;
 	int _maxViewCount;
+	int _currentlySelectedIndex;
 	
 	CALayer _rootLayer;
 	CALayer _axesLayer;
@@ -45,6 +46,7 @@ var totalHeight = 150;
 		_dataPointArray = [[CPArray alloc] initWithCapacity:30];
 		_dataPointLayerArray = [[CPArray alloc] initWithCapacity:30];
 		_maxViewCount = 0;
+		_currentlySelectedIndex = -1;
 		
 		// configure the root layer
 		_rootLayer = [CALayer layer];
@@ -187,7 +189,11 @@ var totalHeight = 150;
 			[layer setAffineTransform:CGAffineTransformMakeScale(1.5, 1.5)];
 			[layer setFillColor:[CPColor redColor]];
 		}
-		else
+		else if (i == _currentlySelectedIndex)
+		{
+			[layer setFillColor:[CPColor colorWithCalibratedRed:0.8 green:0.0 blue:0.0 alpha:1.0]];
+		}
+		else if (i != _currentlySelectedIndex)
 		{
 			[layer setAffineTransform:CGAffineTransformMakeIdentity()];
 			[layer setFillColor:[CPColor darkGrayColor]];
@@ -222,9 +228,11 @@ var totalHeight = 150;
 	{
 		var layer = [_dataPointLayerArray objectAtIndex:i];
 		
-		// if we hit this layer, scale it up a bit
+		// if we hit this layer, show the photos for that day
 		if (hitLayer == layer)
 		{
+			[hitLayer setFillColor:[CPColor colorWithCalibratedRed:0.8 green:0.0 blue:0.0 alpha:1.0]];
+			_currentlySelectedIndex = i;
 			[_appController showDataForDayWithIndex:i];
 		}
 	}
